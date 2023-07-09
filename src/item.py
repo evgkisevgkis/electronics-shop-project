@@ -55,3 +55,10 @@ class Item:
             reader = DictReader(csvfile)
             for i in reader:
                 cls.data.append(Item(i['name'], i['price'], i['quantity']))
+
+    @staticmethod
+    def string_to_number(string):
+        number = float(string)
+        number = int(number)
+        return number
+
