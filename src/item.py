@@ -1,11 +1,15 @@
+from csv import DictReader
+
+
 class Item:
     """
     Класс для представления товара в магазине.
     """
     pay_rate = 1.0
     all = []
+    data = []
 
-    def __init__(self, name0: str, price: float, quantity: int) -> None:
+    def __init__(self, name: str, price: float, quantity: int) -> None:
         """
         Создание экземпляра класса item.
 
@@ -16,13 +20,14 @@ class Item:
         self.price = price
         self.quantity = quantity
         self.all.append(self)
+        self.__name = name
 
     @property
-    def __name(self):
+    def name(self):
         return self.__name
 
-    @__name.setter
-    def __name(self, name: str):
+    @name.setter
+    def name(self, name: str):
         if len(name) > 10:
             self.__name = name[:10]
             pass
@@ -43,3 +48,10 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price = self.price * self.pay_rate
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open('../src/items.csv', 'r', newline='') as csvfile:
+            reader = DictReader(csvfile)
+            for i in reader:
+                cls.data.append(Item(i['name'], i['price'], i['quantity']))
