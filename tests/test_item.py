@@ -12,3 +12,12 @@ def test_apply_discount():
     item1.pay_rate = 0.5
     item1.apply_discount()
     assert item1.price == 50
+
+
+def test_instantiate_from_csv():
+    items = Item.instantiate_from_csv()
+    assert len(items) == 5
+
+
+def test_string_to_number():
+    assert Item.string_to_number('10.3') == 10
