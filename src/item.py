@@ -21,6 +21,7 @@ class Item:
         self.quantity = quantity
         self.all.append(self)
         self.__name = name
+        super().__init__()
 
     @property
     def name(self):
