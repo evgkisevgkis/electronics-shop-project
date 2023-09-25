@@ -82,11 +82,14 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        with open('../src/items.csv', 'r', newline='') as csvfile:
-            reader = DictReader(csvfile)
-            for i in reader:
-                cls.data.append(Item(i['name'], i['price'], i['quantity']))
-            return cls.data
+        try:
+            with open('../src/items.csv', 'r', newline='') as csvfile:
+                reader = DictReader(csvfile)
+                for i in reader:
+                    cls.data.append(Item(i['name'], i['price'], i['quantity']))
+                return cls.data
+        except FileNotFoundError:
+            raise CSVNotFound
 
     @staticmethod
     def string_to_number(string):
