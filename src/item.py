@@ -1,6 +1,24 @@
 from csv import DictReader
 
 
+class CSVErrors(Exception):
+    def __init__(self):
+        self.message = 'Ошибка CSV'
+
+    def __str__(self):
+        return self.message
+
+
+class CSVNotFound(CSVErrors):
+    def __init__(self):
+        self.message = 'Файл CSV не найден'
+
+
+class CSVCorrupted(CSVErrors):
+    def __init__(self):
+        self.message = 'Файл CSV повреждён'
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -75,4 +93,3 @@ class Item:
         number = float(string)
         number = int(number)
         return number
-
