@@ -1,5 +1,7 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
-from src.item import Item
+import pytest
+
+from src.item import *
 
 
 def test_calculate_total_price():
@@ -31,3 +33,15 @@ def test_item_repr():
 def test_item_str():
     item1 = Item("Смартфон", 10000, 20)
     assert str(item1) == 'Смартфон'
+
+
+def test_csv_not_found():
+    """Перед запуском теста требуется переместить файл items.csv"""
+    with pytest.raises(CSVNotFound):
+        Item.instantiate_from_csv()
+
+
+def test_csv_corrupted():
+    """Перед запуском требуется повредить первую строку файла"""
+    with pytest.raises(CSVCorrupted):
+        Item.instantiate_from_csv()
