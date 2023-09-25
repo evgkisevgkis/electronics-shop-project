@@ -86,7 +86,10 @@ class Item:
             with open('../src/items.csv', 'r', newline='') as csvfile:
                 reader = DictReader(csvfile)
                 for i in reader:
-                    cls.data.append(Item(i['name'], i['price'], i['quantity']))
+                    try:
+                        cls.data.append(Item(i['name'], i['price'], i['quantity']))
+                    except KeyError:
+                        raise CSVCorrupted
                 return cls.data
         except FileNotFoundError:
             raise CSVNotFound
